@@ -30,7 +30,7 @@ class TransactionPage extends StatelessWidget {
         if (state is TransactionLoaded && state.justAdded == true) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Transaction updated successfully ✅'),
+              content: Text('Transaction updated successfully '),
               backgroundColor: Colors.green,
               behavior: SnackBarBehavior.floating,
               duration: Duration(seconds: 2),
@@ -145,7 +145,6 @@ class TransactionPage extends StatelessWidget {
                         confirmDismiss: (direction) async {
                           final cubit = context.read<TransactionCubit>();
                           if (direction == DismissDirection.startToEnd) {
-                            // 🗑 Delete
                             final confirm = await showDialog<bool>(
                               context: context,
                               builder: (_) => AlertDialog(
@@ -171,14 +170,13 @@ class TransactionPage extends StatelessWidget {
                               cubit.deleteTransaction(tx.id);
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
-                                  content: Text('Transaction deleted ❌'),
+                                  content: Text('Transaction deleted '),
                                   backgroundColor: Colors.redAccent,
                                 ),
                               );
                             }
                             return confirm ?? false;
                           } else {
-                            // ✏️ Edit
                             final updatedTx =
                                 await Navigator.push<TransactionEntity>(
                                   context,
