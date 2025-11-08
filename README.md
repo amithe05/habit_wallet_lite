@@ -60,7 +60,6 @@ Presentation Layer: BLoCs, Cubits, and Screens
 Clone this repo
 git clone https://github.com/yourusername/habbit_wallet_lite.git
 
-
 Get dependencies -
 flutter pub get
 
@@ -68,13 +67,4 @@ Run app -
 flutter run
 
 
-🕓 Time Spent :
 
-Day 1: Setup, architecture, Hive, Freezed, JSON parsing.
-Day 2: UI, Charts, Auth stub, Edit/Delete, Theming, Error handling.
-
-💡 If given one extra day:
-
-Add daily 8PM notification (using flutter_local_notifications).
-Add Tamil/Hindi localization (intl).
-Add automated sync with conflict resolution.
