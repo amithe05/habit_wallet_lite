@@ -1,0 +1,15 @@
+{
+  "@@locale": "ta",
+  "appTitle": "ஹாபிட் வாலெட் லைட்",
+  "transactions": "பரிவர்த்தனைகள்",
+  "addTransaction": "பரிவர்த்தனை சேர்க்க",
+  "logout": "வெளியேறு",
+  "sync": "ஒத்திசை",
+  "editedLocally": "உள்ளூரில் திருத்தப்பட்டது",
+  "themeToggle": "தீம் மாற்று",
+  "login": "உள்நுழை",
+  "email": "மின்னஞ்சல்",
+  "pin": "பின்",
+  "rememberMe": "என்னை நினைவில் வை",
+  "todayCount": "{count, plural, =0{இன்று பதிவில்லை} one{இன்று 1 பதிவு} other{இன்று {count} பதிவுகள்}}"
+}

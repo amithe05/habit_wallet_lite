@@ -31,7 +31,7 @@ class TransactionWidget extends StatelessWidget {
                 style: Theme.of(context).textTheme.titleMedium,
               ),
             ),
-            // 🟢 show badge if edited locally
+
             if (tx.editedLocally == true)
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),

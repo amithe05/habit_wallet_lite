@@ -16,16 +16,12 @@ class TransactionRepositoryImpl implements TransactionRepository {
     try {
       final remoteTransactions = await remoteDataSource.fetchTransactions();
 
-      // 💾 Save to Hive
       await localDataSource.saveTransactions(remoteTransactions);
 
-      // ✅ Convert each model → entity
       return remoteTransactions.map((e) => e.toEntity()).toList();
     } catch (e) {
-      // 📴 Fallback to Hive
       final cachedTransactions = await localDataSource.getCachedTransactions();
 
-      // ✅ Again convert models → entities
       return cachedTransactions.map((e) => e.toEntity()).toList();
     }
   }

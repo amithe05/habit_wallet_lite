@@ -94,17 +94,14 @@ class TransactionPage extends StatelessWidget {
               child: ListView(
                 physics: const AlwaysScrollableScrollPhysics(),
                 children: [
-                  // 📊 Monthly bar chart
                   TransactionChart(transactions: transactions),
 
                   const Divider(height: 24),
 
-                  // 🥧 Category breakdown pie chart
                   CategoryPieChart(transactions: transactions),
 
                   const Divider(height: 24),
 
-                  // 💸 Transaction list
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(

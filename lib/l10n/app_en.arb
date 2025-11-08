@@ -1,0 +1,15 @@
+{
+  "@@locale": "en",
+  "appTitle": "Habit Wallet Lite",
+  "transactions": "Transactions",
+  "addTransaction": "Add transaction",
+  "logout": "Logout",
+  "sync": "Sync",
+  "editedLocally": "Edited locally",
+  "themeToggle": "Toggle theme",
+  "login": "Login",
+  "email": "Email",
+  "pin": "PIN",
+  "rememberMe": "Remember me",
+  "todayCount": "{count, plural, =0{No entries today} one{1 entry today} other{{count} entries today}}"
+}

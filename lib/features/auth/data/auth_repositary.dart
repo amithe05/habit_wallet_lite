@@ -8,8 +8,7 @@ class AuthRepository {
   static const _keyRememberMe = 'remember_me';
 
   Future<bool> login(String email, String pin, bool rememberMe) async {
-    // Mock login validation
-    if (email != "amith@gmail.com" || pin != "1234") return false;
+    if (email != "userh@gmail.com" || pin != "1234") return false;
 
     if (rememberMe) {
       await _storage.write(key: _keyEmail, value: email);

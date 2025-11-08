@@ -4,22 +4,22 @@ import '../models/transaction_model.dart';
 
 class MockTransactionApi {
   Future<List<TransactionModel>> fetchTransactions() async {
-    // Load JSON file
+    
     final data = await rootBundle.loadString('assets/mock/transactions.json');
     final parsed = json.decode(data);
 
-    // Access the transaction array correctly
+    
     final transactionsNode =
         parsed['BARB0KIMXXX'][0]['decrypted_data']['Account']['Transactions']['Transaction'];
 
-    // Ensure it's always treated as a list (some files might have 1 object instead of array)
+    
     final txList = transactionsNode is List
         ? transactionsNode
         : [transactionsNode];
 
     print('✅ Found ${txList.length} transactions in JSON');
 
-    // Map JSON → TransactionModel
+    
     return txList.map<TransactionModel>((e) {
       final type = e['type'] ?? '';
       final narration = e['narration'] ?? '';

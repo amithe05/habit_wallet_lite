@@ -14,7 +14,6 @@ class TransactionChart extends StatelessWidget {
       return const Center(child: Text('No transactions to display.'));
     }
 
-    // Group total expenses by month (debits only)
     final monthlyTotals = <String, double>{};
     for (final tx in transactions) {
       if (tx.type.toLowerCase() == 'debit') {
@@ -83,12 +82,9 @@ class TransactionChart extends StatelessWidget {
                         if (index < 0 || index >= sortedEntries.length) {
                           return const SizedBox.shrink();
                         }
-                        final label = sortedEntries[index].key.split(
-                          ' ',
-                        )[0]; // "Jan"
+                        final label = sortedEntries[index].key.split(' ')[0];
                         return SideTitleWidget(
-                          // ❌ axisSide: meta.axisSide,  <-- remove this on new API
-                          meta: meta, // ✅ required
+                          meta: meta,
                           child: Text(
                             label,
                             style: const TextStyle(fontSize: 10),

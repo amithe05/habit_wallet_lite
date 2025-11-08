@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:habbit_wallet_lite/core/theme/theme_cubit.dart';
 import 'package:habbit_wallet_lite/features/auth/data/auth_repositary.dart';
 import 'package:habbit_wallet_lite/features/auth/presentation/bloc/auth_cubit.dart';
@@ -7,6 +8,7 @@ import 'package:habbit_wallet_lite/features/auth/presentation/pages/login_screen
 import 'package:habbit_wallet_lite/features/transactions/data/datasources/transaction_local_source.dart';
 import 'package:habbit_wallet_lite/features/transactions/data/models/transaction_model.dart';
 import 'package:habbit_wallet_lite/features/transactions/presentation/bloc/transactional_cubit.dart';
+import 'package:habbit_wallet_lite/l10n/app_localizations.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'features/transactions/data/datasources/mock_transaction_api.dart';
 import 'features/transactions/data/respositaries/transaction_repo_impl.dart';
@@ -47,8 +49,15 @@ class MyApp extends StatelessWidget {
       builder: (context, themeMode) {
         return MaterialApp(
           title: 'Habit Wallet Lite',
-          debugShowCheckedModeBanner: false,
           themeMode: themeMode,
+          debugShowCheckedModeBanner: false,
+          localizationsDelegates: [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: const [Locale('en'), Locale('ta'), Locale('hi')],
           theme: ThemeData(
             brightness: Brightness.light,
             colorSchemeSeed: Colors.green,

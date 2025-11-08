@@ -1,0 +1,15 @@
+{
+  "@@locale": "hi",
+  "appTitle": "हैबिट वॉलेट लाइट",
+  "transactions": "लेन-देन",
+  "addTransaction": "लेन-देन जोड़ें",
+  "logout": "लॉगआउट",
+  "sync": "सिंक करें",
+  "editedLocally": "स्थानीय रूप से संपादित",
+  "themeToggle": "थीम बदलें",
+  "login": "लॉगिन करें",
+  "email": "ईमेल",
+  "pin": "पिन",
+  "rememberMe": "मुझे याद रखें",
+  "todayCount": "{count, plural, =0{आज कोई प्रविष्टि नहीं} one{आज 1 प्रविष्टि} other{आज {count} प्रविष्टियाँ}}"
+}

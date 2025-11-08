@@ -22,7 +22,6 @@ class CategoryPieChart extends StatelessWidget {
 
     final totalAmount = totals.values.fold(0.0, (a, b) => a + b);
 
-    // Generate random but consistent colors per category
     final categoryColors = _generateCategoryColors(totals.keys.toList());
 
     return Padding(
@@ -36,7 +35,6 @@ class CategoryPieChart extends StatelessWidget {
           ),
           const SizedBox(height: 30),
 
-          // 🥧 Donut chart
           SizedBox(
             height: 220,
             child: PieChart(
@@ -51,7 +49,7 @@ class CategoryPieChart extends StatelessWidget {
                     color: color,
                     value: entry.value,
                     radius: 60,
-                    title: '', // no text inside
+                    title: '',
                     showTitle: false,
                   );
                 }).toList(),
@@ -61,7 +59,6 @@ class CategoryPieChart extends StatelessWidget {
 
           const SizedBox(height: 25),
 
-          // 🧾 Legends
           Wrap(
             alignment: WrapAlignment.center,
             spacing: 12,

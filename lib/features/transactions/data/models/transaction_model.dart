@@ -16,7 +16,6 @@ class TransactionModel with _$TransactionModel {
     @HiveField(4) required String type,
     @HiveField(5) required String narration,
 
-    // 👇 extra field for local edit badge
     @Default(false)
     @HiveField(6)
     @JsonKey(defaultValue: false)
@@ -27,7 +26,6 @@ class TransactionModel with _$TransactionModel {
   factory TransactionModel.fromJson(Map<String, dynamic> json) =>
       _$TransactionModelFromJson(json);
 
-  // ✅ keep only one fromEntity method (factory version)
   factory TransactionModel.fromEntity(TransactionEntity e) => TransactionModel(
     id: e.id,
     amount: e.amount,
@@ -39,7 +37,6 @@ class TransactionModel with _$TransactionModel {
   );
 }
 
-// ✅ Extension only needs to map Model → Entity
 extension TransactionModelMapper on TransactionModel {
   TransactionEntity toEntity() => TransactionEntity(
     id: id,
