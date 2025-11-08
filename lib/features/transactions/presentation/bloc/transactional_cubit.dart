@@ -44,4 +44,24 @@ class TransactionCubit extends Cubit<TransactionState> {
       emit(TransactionError('Failed to add transaction: $e'));
     }
   }
+
+  Future<void> updateTransaction(TransactionEntity updatedTx) async {
+    try {
+      await repository.updateTransaction(updatedTx);
+      final txs = await repository.getTransactions();
+      emit(TransactionLoaded(txs, justAdded: true)); // reuse snackbar logic
+    } catch (e) {
+      emit(TransactionError('Failed to update transaction: $e'));
+    }
+  }
+
+  Future<void> deleteTransaction(String id) async {
+    try {
+      await repository.deleteTransaction(id);
+      final txs = await repository.getTransactions();
+      emit(TransactionLoaded(txs, justAdded: true));
+    } catch (e) {
+      emit(TransactionError('Failed to delete transaction: $e'));
+    }
+  }
 }

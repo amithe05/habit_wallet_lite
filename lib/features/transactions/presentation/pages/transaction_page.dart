@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:habbit_wallet_lite/core/theme/theme_cubit.dart';
 import 'package:habbit_wallet_lite/features/auth/presentation/bloc/auth_cubit.dart';
+import 'package:habbit_wallet_lite/features/transactions/domain/entities/transaction.dart';
 import 'package:habbit_wallet_lite/features/transactions/presentation/bloc/transactional_cubit.dart';
 import 'package:habbit_wallet_lite/features/transactions/presentation/bloc/transactional_state.dart';
 import 'package:habbit_wallet_lite/features/transactions/presentation/pages/add_edit_transaction_page.dart';
@@ -29,7 +30,7 @@ class TransactionPage extends StatelessWidget {
         if (state is TransactionLoaded && state.justAdded == true) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Transaction added successfully ✅'),
+              content: Text('Transaction updated successfully ✅'),
               backgroundColor: Colors.green,
               behavior: SnackBarBehavior.floating,
               duration: Duration(seconds: 2),
@@ -51,7 +52,6 @@ class TransactionPage extends StatelessWidget {
               tooltip: 'Toggle theme',
               onPressed: () => context.read<ThemeCubit>().toggleTheme(),
             ),
-
             IconButton(
               icon: const Icon(Icons.logout),
               tooltip: 'Logout',
@@ -66,21 +66,18 @@ class TransactionPage extends StatelessWidget {
             ),
           ],
         ),
-
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
             final newTx = await Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const AddTransactionPage()),
             );
-
             if (newTx != null && context.mounted) {
               context.read<TransactionCubit>().addTransaction(newTx);
             }
           },
           child: const Icon(Icons.add),
         ),
-
         body: BlocBuilder<TransactionCubit, TransactionState>(
           builder: (context, state) {
             if (state is TransactionLoading) {
@@ -120,13 +117,9 @@ class TransactionPage extends StatelessWidget {
                   physics: const AlwaysScrollableScrollPhysics(),
                   children: [
                     TransactionChart(transactions: transactions),
-
                     const Divider(height: 24),
-
                     CategoryPieChart(transactions: transactions),
-
                     const Divider(height: 24),
-
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
@@ -134,10 +127,75 @@ class TransactionPage extends StatelessWidget {
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                     ),
-
-                    ...transactions
-                        .map((tx) => TransactionWidget(tx: tx))
-                        .toList(),
+                    ...transactions.map((tx) {
+                      return Dismissible(
+                        key: Key(tx.id),
+                        background: Container(
+                          color: Colors.red,
+                          alignment: Alignment.centerLeft,
+                          padding: const EdgeInsets.only(left: 20),
+                          child: const Icon(Icons.delete, color: Colors.white),
+                        ),
+                        secondaryBackground: Container(
+                          color: Colors.blue,
+                          alignment: Alignment.centerRight,
+                          padding: const EdgeInsets.only(right: 20),
+                          child: const Icon(Icons.edit, color: Colors.white),
+                        ),
+                        confirmDismiss: (direction) async {
+                          final cubit = context.read<TransactionCubit>();
+                          if (direction == DismissDirection.startToEnd) {
+                            // 🗑 Delete
+                            final confirm = await showDialog<bool>(
+                              context: context,
+                              builder: (_) => AlertDialog(
+                                title: const Text('Delete Transaction'),
+                                content: const Text(
+                                  'Are you sure you want to delete this transaction?',
+                                ),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(context, false),
+                                    child: const Text('Cancel'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(context, true),
+                                    child: const Text('Delete'),
+                                  ),
+                                ],
+                              ),
+                            );
+                            if (confirm == true) {
+                              cubit.deleteTransaction(tx.id);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Transaction deleted ❌'),
+                                  backgroundColor: Colors.redAccent,
+                                ),
+                              );
+                            }
+                            return confirm ?? false;
+                          } else {
+                            // ✏️ Edit
+                            final updatedTx =
+                                await Navigator.push<TransactionEntity>(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) =>
+                                        AddTransactionPage(existingTx: tx),
+                                  ),
+                                );
+                            if (updatedTx != null) {
+                              cubit.updateTransaction(updatedTx);
+                            }
+                            return false;
+                          }
+                        },
+                        child: TransactionWidget(tx: tx),
+                      );
+                    }).toList(),
                     const SizedBox(height: 16),
                   ],
                 ),

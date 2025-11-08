@@ -32,3 +32,8 @@ class TransactionLocalDataSourceImpl implements TransactionLocalDataSource {
     await box.put(tx.id, tx);
   }
 }
+
+Future<void> deleteTransaction(String id) async {
+  final box = await Hive.openBox<TransactionModel>('transactions');
+  await box.delete(id);
+}

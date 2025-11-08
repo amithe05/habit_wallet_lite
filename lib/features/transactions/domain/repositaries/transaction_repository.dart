@@ -3,4 +3,6 @@ import 'package:habbit_wallet_lite/features/transactions/domain/entities/transac
 abstract class TransactionRepository {
   Future<List<TransactionEntity>> getTransactions();
   Future<void> saveTransaction(TransactionEntity entity);
+  Future<void> updateTransaction(TransactionEntity transaction);
+  Future<void> deleteTransaction(String id);
 }
