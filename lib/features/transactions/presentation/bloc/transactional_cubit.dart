@@ -38,7 +38,7 @@ class TransactionCubit extends Cubit<TransactionState> {
         )..add(tx);
         emit(TransactionLoaded(updatedList));
       } else {
-        emit(TransactionLoaded([tx]));
+        emit(TransactionLoaded([tx], justAdded: true));
       }
     } catch (e) {
       emit(TransactionError('Failed to add transaction: $e'));

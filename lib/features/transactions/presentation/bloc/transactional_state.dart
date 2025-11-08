@@ -14,11 +14,12 @@ class TransactionLoading extends TransactionState {}
 
 class TransactionLoaded extends TransactionState {
   final List<TransactionEntity> transactions;
+  final bool justAdded;
 
-  const TransactionLoaded(this.transactions);
+  const TransactionLoaded(this.transactions, {this.justAdded = false});
 
   @override
-  List<Object?> get props => [transactions];
+  List<Object?> get props => [transactions, justAdded];
 }
 
 class TransactionError extends TransactionState {
